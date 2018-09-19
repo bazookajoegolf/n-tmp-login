@@ -1,0 +1,20 @@
+{
+  "name": "brad",
+  "version": "1.0.0",
+  "description": "template",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "brad zingle",
+  "license": "ISC",
+  "dependencies": {
+    "config": "^2.0.1",
+    "express": "^4.16.3",
+    "helmet": "^3.13.0",
+    "joi": "^13.6.0",
+    "lodash": "^4.17.11",
+    "mongoose": "^5.2.14",
+    "morgan": "^1.9.1"
+  }
+}
