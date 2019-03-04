@@ -1,4 +1,5 @@
 {
     "name" : "My app in production",
-    "mail" : {"host" :"prod-mail-server"}
+    "mail" : {"host" :"prod-mail-server"},
+    "host"  : "localhost:3000"
 }

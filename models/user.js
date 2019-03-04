@@ -3,6 +3,25 @@ const express = require('express');
 const Joi = require('joi');
 const mongoose = require('mongoose');
 
+const config = require('config');
+const jwt = require('jsonwebtoken');
+const fs = require('fs');
+
+var privateKey = fs.readFileSync('./config/private.key','utf8');
+
+
+var i = "bazookajoegolf Inc";    // Issuer
+var s = "bazookajoegolf@outlook.com";  //Subject
+var a = "http://handicap.bazookajoegolf.com"  //audience
+
+var signOptions = {
+   issuer : i,
+   subject : s,
+   audience : a,
+   expiresIn: '4h',  
+   algorithm: "RS256"
+};
+
 const userSchema = new mongoose.Schema({
 
     // mongoose validators
@@ -21,19 +40,29 @@ const userSchema = new mongoose.Schema({
     email : {type: String, require: true, minlength: 5, maxlength: 50, unique: true},
     password : {type: String, required : true, minlength: 5, maxlength: 1024},
     createDate : {type : Date, default : Date.now},
-    isadmin: Boolean
+    isadmin: {type: Boolean, default: "false"}
 
 });
 
+userSchema.methods.generateAuthToken = function(){
+  // return jwt.sign({_id: this._id, email: this.email, isadmin: this.isadmin}, config.get('jwtPrivateKey'));
+   return jwt.sign({_id: this._id, email: this.email, isadmin: this.isadmin},privateKey, signOptions);
+
+}
+
 const User = mongoose.model('user', userSchema);
+
 
 function validateUser(user) {
     const schema = {
         name: Joi.string().min(5).max(50).required(),
         email: Joi.string().min(5).max(50).required().email(),
-        password: Joi.string().min(5).max(50).required()
-    }
-    return Joi.validate(user,schema);
+        password: Joi.string().min(5).max(100).required(),
+        isadmin : Joi.any().valid(["true","false"])
+
+    } 
+
+    return Joi.validate(user,schema , {presence : "required"});
 }
 
 exports.User = User;

@@ -1,5 +1,6 @@
 {
     "name" : "My app in developments",
     "mail" : {"host" :"dev-mail-server"},
-    "db"   : "mongodb://localhost/template"
+    "db"   : "mongodb://localhost/template",
+    "host"  : "http://10.27.10.152:3000"
 }
