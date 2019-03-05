@@ -66,7 +66,7 @@ router.post('/',  async (req, res) => {
     await newuser.save();
 
     let transport = nodemailer.createTransport({
-        host : "mail.harvestenergy.ca",
+        host : "smtp.shaw.ca",
         port : 25, 
 
         auth: null
@@ -76,7 +76,7 @@ router.post('/',  async (req, res) => {
     const textbody = `${config.get('host')}/api/users/${newuser._id}`;
     let mailOptions = {
         from: 'putinconfigyourfromaddress@someaddress.com',
-        to:  'brad.zingle@harvestenergy.ca',         //req.body.email,
+        to:  'bzingle@shaw.ca',         //req.body.email,
         subject: 'New User Confirmation',
         text: textbody
     };
