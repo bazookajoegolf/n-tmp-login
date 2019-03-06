@@ -5,9 +5,13 @@ const config = require('config');
 
 // const morgan = require('morgan');  // logging middleware
 
+// cors added for development, may not need for prod
+
+const cors = require('cors');
 // load express
 const express = require('express')
 const app = express();
+app.use(cors());
 
 //config start 
 require('./startup/config')(app);
